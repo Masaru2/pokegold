@@ -76,7 +76,7 @@ ContestBattleMenuHeader:
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_DISABLE_B ; flags
 	dn 2, 2 ; rows, columns
-	db 8 ; spacing
+	db 6 ; spacing
 	dba .Text
 	dba .PrintParkBallsRemaining
 
