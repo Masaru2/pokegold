@@ -195,8 +195,9 @@ BuySell_DisplaySubtotal:
 	pop hl
 	inc hl
 	ld de, hMoneyTemp
-	lb bc, PRINTNUM_MONEY | 3, 6
+	lb bc, 4, 6
 	call PrintNum
+	ld [hl], "¥"
 	call WaitBGMap
 	ret
 

@@ -32,14 +32,15 @@ PlaceMoneyTopRight:
 	call CopyMenuHeader
 	jr PlaceMoneyTextbox
 
-PlaceMoneyBottomLeft:
-	ld hl, MoneyBottomLeftMenuHeader
+PlaceMoneyTopLeft:
+	ld hl, MoneyTopLeftMenuHeader
 	call CopyMenuHeader
 	jr PlaceMoneyTextbox
 
-PlaceMoneyAtTopLeftOfTextbox:
+PlaceMoneyWindowTopLeft:
 	ld hl, MoneyTopRightMenuHeader
-	lb de, 0, 11
+	ld d, 0
+	ld e, 11
 	call OffsetMenuHeader
 
 PlaceMoneyTextbox:
@@ -48,8 +49,9 @@ PlaceMoneyTextbox:
 	ld de, SCREEN_WIDTH + 1
 	add hl, de
 	ld de, wMoney
-	lb bc, PRINTNUM_MONEY | 3, 6
+	lb bc, 3, 6
 	call PrintNum
+	ld [hl], "¥"
 	ret
 
 MoneyTopRightMenuHeader:
@@ -58,9 +60,9 @@ MoneyTopRightMenuHeader:
 	dw NULL
 	db 1 ; default option
 
-MoneyBottomLeftMenuHeader:
+MoneyTopLeftMenuHeader:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 0, 11, 8, 13
+	menu_coords 0, 0, 8, 2
 	dw NULL
 	db 1 ; default option
 
@@ -92,9 +94,10 @@ DisplayMoneyAndCoinBalance:
 	call PlaceString
 	hlcoord 12, 1
 	ld de, wMoney
-	lb bc, PRINTNUM_MONEY | 3, 6
+	lb bc, 3, 6
 	call PrintNum
-	hlcoord 6, 3
+	ld [hl], "¥"
+	hlcoord 7, 3
 	ld de, CoinString
 	call PlaceString
 	hlcoord 15, 3

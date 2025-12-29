@@ -568,8 +568,9 @@ MenuHeader_Buy:
 	pop hl
 	ld bc, SCREEN_WIDTH
 	add hl, bc
-	ld c, PRINTNUM_LEADINGZEROS | PRINTNUM_MONEY | 3
+	ld c, PRINTNUM_LEADINGZEROS | 3
 	call PrintBCDNumber
+	ld [hl], "¥"
 	ret
 
 HerbShopLadyIntroText:
@@ -714,7 +715,7 @@ SellMenu:
 .okay_to_sell
 	ld hl, MartSellHowManyText
 	call PrintText
-	farcall PlaceMoneyAtTopLeftOfTextbox
+	farcall PlaceMoneyWindowTopLeft
 	farcall SelectQuantityToSell
 	call ExitMenu
 	jr c, .declined
@@ -738,7 +739,7 @@ SellMenu:
 	ld hl, MartBoughtText
 	call PrintTextboxText
 	call PlayTransactionSound
-	farcall PlaceMoneyBottomLeft
+	farcall PlaceMoneyTopLeft
 	call JoyWaitAorB
 
 .declined
@@ -763,7 +764,7 @@ MartWelcomeText:
 
 MenuHeader_BuySell:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 0, 0, 11, 8
+	menu_coords 0, 0, 7, 8
 	dw .MenuData
 	db 1 ; default option
 

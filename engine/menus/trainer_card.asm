@@ -241,8 +241,9 @@ TrainerCard_PrintTopHalfOfCard:
 	call PrintNum
 	hlcoord 7, 6
 	ld de, wMoney
-	lb bc, PRINTNUM_MONEY | 3, 6
+	lb bc, 3, 6
 	call PrintNum
+	ld [hl], "¥"
 	hlcoord 1, 3
 	ld de, .HorizontalDivider
 	call TrainerCardSetup_PlaceTilemapString
